@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTN - Day-to-Night IT Solutions</title>
+    <link href="https://cloudflare.com" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0093DD;   /* Blue */
+            --accent: #E67817;    /* Orange */
+            --success: #00923F;   /* Green */
+            --white: #FFFFFF;
+            --light-gray: #f9f9f9;
+            --text-dark: #222222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body { 
+            line-height: 1.8; 
+            color: var(--text-dark); 
+            background-color: var(--white);
+            font-size: 25px; /* Tăng font chữ cơ bản */
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li { margin-left: 20px; }
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 1.3rem;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Home Section */
+        #home {
+            height: 100vh;
+            /* Lớp phủ gradient giúp chữ trắng dễ đọc hơn trên nền ảnh */
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('img1.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Tạo hiệu ứng cuộn ảnh (parallax) nhẹ */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+            margin-top: 60px;
+        }
+
+        .hero-content h1 { font-size: 4rem; margin-bottom: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 2rem; max-width: 900px; margin: 0 auto 2.5rem; font-weight: 300; }
+        
+        .btn-cta {
+            padding: 15px 40px;
+            background: var(--accent);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(230, 120, 23, 0.4);
+        }
+        .btn-cta:hover { transform: scale(1.05); background: var(--success); }
+
+        /* General Section Styling */
+        section { padding: 120px 10%; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 4rem;
+            color: var(--primary);
+        }
+        .section-title span { color: var(--success); }
+
+        /* About Section */
+        .about-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-text h3 { color: var(--accent); font-size: 4rem; margin-bottom: 20px; }
+        .about-text p { font-size: 2rem; margin-bottom: 20px; }
+        .about-img img { width: 100%; border-radius: 20px; border-left: 10px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+
+        /* Services Section */
+        #services { background: var(--light-gray); }
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .service-card {
+            background: var(--white);
+            padding: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border-bottom: 5px solid transparent;
+        }
+        .service-card:hover { border-bottom: 5px solid var(--accent); transform: translateY(-10px); }
+        .service-card img { width: 100%; height: 200px; object-fit: cover; }
+        .service-content { padding: 25px; }
+        .service-content h3 { color: var(--primary); font-size: 2rem; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .service-content ul { list-style: none; }
+        .service-content li { font-size: 1.6rem; margin-bottom: 10px; display: flex; align-items: flex-start; }
+        .service-content li i { color: var(--success); margin-right: 10px; margin-top: 5px; }
+
+        /* Commitments */
+        .commit-intro { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; margin-bottom: 60px; }
+        .commit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .commit-card {
+            background: var(--white);
+            padding: 30px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .commit-card i { font-size: 4rem; color: var(--primary); margin-bottom: 20px; }
+        .commit-card h4 { color: var(--accent); font-size: 2rem; margin-bottom: 15px; }
+
+        /* Pricing */
+        #pricing { background: var(--primary); color: white; }
+        #pricing .section-title { color: white; }
+        .pricing-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; align-items: center; }
+        .price-card {
+            background: var(--white);
+            color: var(--text-dark);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .price-card.hot { border: 4px solid var(--accent); }
+        .badge { position: absolute; top: 20px; right: 20px; background: var(--accent); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; }
+        .price-card h2 { font-size: 4rem; color: var(--primary); margin: 20px 0; }
+        .price-card p { font-size: 2rem; margin-bottom: 20px; min-height: 80px; }
+
+        /* Contact */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 50px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        .contact-img img { width: 100%; border-radius: 15px; }
+        .contact-details h4 { font-size: 2rem; color: var(--success); margin-bottom: 25px; }
+        .info-row { display: flex; align-items: center; gap: 20px; margin-bottom: 25px; font-size: 1.6rem; }
+        .info-row i { width: 50px; height: 50px; background: var(--light-gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+
+        footer { background: #111; color: white; text-align: center; padding: 40px; border-top: 5px solid var(--success); }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-wrapper, .contact-wrapper, .commit-intro { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 3rem; }
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 50px; /* Bạn có thể tăng/giảm số này tùy theo dáng logo thực tế */
+            width: auto;
+            object-fit: contain;
+        }
+        .brand-name {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .d-color { color: #00923F; } /* Xanh lá */
+        .t-color { color: #E67817; } /* Cam */
+        .n-color { color: #0093DD; } /* Xanh dương */
+        .it-suffix {
+            color: #222; /* Màu đen nhẹ cho chữ IT */
+            font-size: 1.2rem;
+            margin-left: 5px;
+            vertical-align: middle;
+        }
+
+        /* Đảm bảo logo không bị dính sát mép trên điện thoại */
+        @media (max-width: 768px) {
+            .logo-img { height: 40px; }
+            .brand-name { font-size: 1.5rem; }
+        }
+
+        .service-icon-wrapper {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f8ff; /* Nền xanh nhạt nhẹ để nổi bật icon */
+            border-bottom: 1px solid #eee;
+        }
+
+        .service-icon-wrapper i {
+            font-size: 5rem; /* Tăng kích thước icon */
+            color: #0093DD; /* Màu xanh dương chủ đạo */
+            transition: 0.3s;
+        }
+
+        .service-card:hover .service-icon-wrapper i {
+            transform: scale(1.1) rotate(5deg);
+            color: #E67817; /* Đổi sang màu cam khi hover tạo điểm nhấn */
+        }
+
+        /* Loại bỏ định dạng ảnh cũ nếu có */
+        /*.service-card img { display: none; }*/
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sticky Navigation -->
+    <nav>
+        <div class="logo">
+            <img src="Logo_DTN.jpg" alt="DTN Logo" class="logo-img">
+            <div class="brand-name">
+                <span class="d-color">D</span><span class="t-color">T</span><span class="n-color">N</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#commitments">Commitments</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="hero-content">
+            <h1>
+                <span style="color: #00923F">Day</span> -to-
+                <span style="color: #E67817">Night</span> 
+                <span style="color: #0093DD">IT</span>
+            </h1>
+            <p>DTN keeps your business connected, secure, and productive, delivering reliable IT infrastructure and support from early launch to late-night emergencies.</p>
+            <a href="#contact" class="btn-cta">Connect With Us Today</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <div class="about-wrapper">
+            <div class="about-text">
+                <h2 style="font-size: 3rem; margin-bottom: 10px;">About <span style="color: var(--primary)">Us</span></h2>
+                <h3>Your Strategic IT Partner</h3>
+                <p>DTN combines deep enterprise experience with agile execution, helping organizations modernize infrastructure, streamline operations, and equip teams with dependable hardware and software.</p>
+                <p>We don't just fix problems; we build foundations for your future growth with sustainable technology solutions.</p>
+            </div>
+            <div class="about-img">
+                <img src="img3.png" alt="Team working">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">Our <span>IT Solutions</span></h2>
+        <div class="services-container">
+            <!-- Service 1: Professional Services -->
+            <div class="service-card">
+                <div class="service-icon-wrapper">
+                    <i class="fa-brands fa-whmcs"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Professional Services</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Consulting & Training</li>
+                        <li><i class="fas fa-check-circle"></i> Implementation/Deployment</li>
+                        <li><i class="fas fa-check-circle"></i> On Site Support</li>
+                        <li><i class="fas fa-check-circle"></i> Hardware Supply</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Service 2: Designs -->
+            <div class="service-card">
+                <div class="service-icon-wrapper">
+                    <i class="fa-solid fa-compass-drafting"></i>
+                </div>
+                <div class="service-content">
+                    <h3>System Designs</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Business Analysis</li>
+                        <li><i class="fas fa-check-circle"></i> Network Planning</li>
+                        <li><i class="fas fa-check-circle"></i> 3 Layered Architecture</li>
+                        <li><i class="fas fa-check-circle"></i> Requirement Evaluation</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Service 3: Projects -->
+            <div class="service-card">
+                <div class="service-icon-wrapper">
+                    <i class="fa-solid fa-diagram-project"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Core Projects</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Database Management</li>
+                        <li><i class="fas fa-check-circle"></i> Network Security</li>
+                        <li><i class="fas fa-check-circle"></i> Cloud Migration</li>
+                        <li><i class="fas fa-check-circle"></i> Server Rack Deployment</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Service 4: New Trends -->
+            <div class="service-card">
+                <div class="service-icon-wrapper">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div class="service-content">
+                    <h3>New Trends</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Generative AI Solutions</li>
+                        <li><i class="fas fa-check-circle"></i> AIoT System</li>
+                        <li><i class="fas fa-check-circle"></i> Robotic Automation</li>
+                        <li><i class="fas fa-check-circle"></i> Analysis & Consulting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Commitments Section -->
+    <section id="commitments">
+        <h2 class="section-title">Our <span>Commitments</span></h2>
+        <div class="commit-intro">
+            <p style="font-size: 2rem;">We prioritize excellence in every project we deliver, ensuring your business stays connected and secure with the highest standards in the industry.</p>
+            <img src="commit.jpeg" style="width: 100%; border-radius: 15px;" alt="Commitment">
+        </div>
+        <div class="commit-grid">
+            <div class="commit-card">
+                <i class="fas fa-shield-virus"></i>
+                <h4>Safety & Quality</h4>
+                <p>Genuine origin and high operational safety for all hardware.</p>
+            </div>
+            <div class="commit-card">
+                <i class="fas fa-clock"></i>
+                <h4>Responsive Support</h4>
+                <p>From early launch to late-night emergencies to minimize downtime.</p>
+            </div>
+            <div class="commit-card">
+                <i class="fas fa-lock"></i>
+                <h4>Data Security</h4>
+                <p>High-standard security layers to protect confidential data.</p>
+            </div>
+            <div class="commit-card">
+                <i class="fas fa-file-contract"></i>
+                <h4>Comprehensive Warranty</h4>
+                <p>Prompt replacement and maintenance for robust systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing">
+        <h2 class="section-title">Service <span>Plans</span></h2>
+        <div class="pricing-wrap">
+            <div class="price-card">
+                <h3 style="color: var(--accent)">Core Support</h3>
+                <h2>$1,200<span>/mo</span></h2>
+                <p>Remote monitoring, patch management, and business-hours helpdesk for growing teams (8x5 support).</p>
+                <a href="#contact" class="btn-cta" style="background: var(--primary)">Choose Core</a>
+            </div>
+            <div class="price-card hot">
+                <div class="badge">BEST VALUE</div>
+                <h3 style="color: var(--success)">Enterprise Care</h3>
+                <h2>$2,800<span>/mo</span></h2>
+                <p>Full-stack enterprise solutions with 24/7 support, onsite visits, and compliance-ready documentation.</p>
+                <a href="#contact" class="btn-cta">Choose Enterprise</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="contact-wrapper">
+            <div class="contact-img">
+                <img src="Logo_DTN.jpg" alt="Office">
+            </div>
+            <div class="contact-details">
+                <h4>DTN VIETNAM DISTRIBUTION CO. LTD.</h4>
+                <div class="info-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>No. 34 Hoa Phuong st., Phu Nhuan dist., HCMC</p>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>(84) 978 460 181</p>
+                </div>
+                <div class="info-row">
+                    <i class="fas fa-envelope"></i>
+                    <p>sales@dtnvietnam.com</p>
+                </div>
+                <div style="margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px;">
+                    <p style="color: var(--accent); font-weight: bold;">Available for 24/7 Emergency Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 DTN Vietnam Distribution Co. Ltd. | Delivering Reliable IT Solutions</p>
+    </footer>
+
+</body>
+</html>
